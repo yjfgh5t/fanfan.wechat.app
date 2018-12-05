@@ -1,4 +1,4 @@
-var tools = require('common.js')
+import { tools } from 'common.js'
 
 let order = {
   // 创建订单

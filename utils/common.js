@@ -1,4 +1,5 @@
 import md5 from 'md5.js'
+import util from 'util.js'
 let tools = {
   //异步请求
   ajax: function (pathname, data, method, success, option) {
@@ -79,40 +80,58 @@ let tools = {
       success(app.userInfo);
       return;
     }
-
-    wx.getAuthCode({
-      scopes: 'auth_user',
-      success: (res) => {
-        //获取用户信息
-        tools.ajax("api/user/", { code: res.authCode, type: 1 }, "POST", function (resp) {
-          console.log(resp);
-          if (resp.code == 0) {
-            wx.setStorage({
-              key: 'userInfo', // 缓存数据的 key
-              data: resp.data, // 要缓存的数据
-              success: (res) => {
-                //设置用户信息至app
-                app.userInfo = resp.data;
-              },
-            });
-            //回调函数
-            success(resp.data);
-            return;
-          }
-          wx.showToast({ content: "获取用户信息失败，请稍后重试" });
-        });
-      },
-      fail: (res) => {
-        wx.confirm({
-          content: '授权后才能继续执行哦！', // alert 框的标题
-          confirmButtonText: '继续授权',
-          cancelButtonText: '取消',
-          success: (res) => {
-            tools.getAuthCode(success);
-          },
-        });
+debugger
+    //判断用户是否授权
+    wx.getSetting({
+      success: function (res) {
+        console.log(res)
+        //是否授权
+        if (res.authSetting['scope.userInfo']) {
+          wx.getUserInfo({
+            success: (res) => {
+             console.log(res)
+            },
+            fail: (res) => {
+              wx.confirm({
+                content: '授权后才能继续执行哦！', // alert 框的标题
+                confirmButtonText: '继续授权',
+                cancelButtonText: '取消',
+                success: (res) => {
+                  tools.getAuthCode(success);
+                },
+              });
+            }
+          });
+        }
       }
-    });
+    })
+  },
+  // 微信用户登录
+ async wxLogin (){
+   return new Promise(function(resolve,reject){
+     wx.login({
+       success(res){
+         //获取用户信息
+         tools.ajax("api/user/", { code: res.authCode, type: 1 }, "POST", function (resp) {
+           console.log(resp);
+           if (resp.code == 0) {
+             wx.setStorage({
+               key: 'userInfo', // 缓存数据的 key
+               data: resp.data, // 要缓存的数据
+               success: (res) => {
+                 //设置用户信息至app
+                 app.userInfo = resp.data;
+               },
+             });
+             //回调函数
+             resolve(resp.data);
+           }else{
+             wx.showToast({ content: "获取用户信息失败，请稍后重试" });
+           }
+         });
+       }
+     })
+   });
   },
   //设置全局变量
   setParams: function (objKey, objVal) {

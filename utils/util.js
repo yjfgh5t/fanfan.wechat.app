@@ -1,19 +1,20 @@
-const formatTime = date => {
-  const year = date.getFullYear()
-  const month = date.getMonth() + 1
-  const day = date.getDate()
-  const hour = date.getHours()
-  const minute = date.getMinutes()
-  const second = date.getSeconds()
+let util ={
+  // 获取Setting
+  getSetting:function (socpeName) {
+    var result = new Promise(function (resolve, reject) {
+      wx.getSetting({
+        success: function (res) {
+          if (res.authSetting[socpeName]) {
+            resolve(res);
+          } else {
+            reject(res);
+          }
+        }
+      })
+    });
 
-  return [year, month, day].map(formatNumber).join('/') + ' ' + [hour, minute, second].map(formatNumber).join(':')
+    return result;
+  }
 }
 
-const formatNumber = n => {
-  n = n.toString()
-  return n[1] ? n : '0' + n
-}
-
-module.exports = {
-  formatTime: formatTime
-}
+export {util}

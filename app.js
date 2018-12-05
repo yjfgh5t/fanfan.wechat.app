@@ -89,7 +89,6 @@ App({
     if (this.config.customerId == -1) {
       let config = wx.getStorageSync('app.config');
       if (config != null && config.customerId) {
-        debugger
         this.config = config;
       }
     }
@@ -148,10 +147,7 @@ App({
           return;
         }
         //添加至缓存
-        wx.setStorageSync({
-          key: 'app.config', // 缓存数据的key
-          data: _this.config, // 要缓存的数据
-        });
+        wx.setStorageSync('app.config', _this.config);
       };
 
     });

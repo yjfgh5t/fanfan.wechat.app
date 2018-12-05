@@ -62,14 +62,15 @@ Page({
     loadState: 1
   },
   onReady: function () {
-    //my.showLoading();
+    //初始加载数据
     getApp().loadData();
+    
     this.lazyLoad(this);
-    console.log(tools)
   },
   onShow: function () {
     //清空购物车
     this.privClearCar();
+    //this.initSubBtn();
   },
   lazyLoad: function (that) {
     if (getApp().config.customerId == -1) {
@@ -136,6 +137,30 @@ Page({
 
       }
     });
+
+  },
+  //todo 初始化提交按钮
+  initSubBtn:function(){
+
+    let button = wx.createUserInfoButton({
+      type: 'submit',
+      text: '去结算',
+      style: {
+        left: 10,
+        top: 76,
+        width: 200,
+        height: 40,
+        lineHeight: 40,
+        backgroundColor: '#ff0000',
+        color: '#ffffff',
+        textAlign: 'center',
+        fontSize: 16,
+        borderRadius: 4
+      }
+    })
+    button.onTap((res) => {
+      console.log(res)
+    })
 
   },
   //显示购物车
