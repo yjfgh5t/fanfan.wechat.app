@@ -18,10 +18,10 @@ let order = {
       };
 
       //创建临时订单
-      tools.ajax("api/order/", JSON.stringify(orderReq), "POST", function (resp) {
+      tools.ajax("api/order/", JSON.stringify(orderReq), "JSON", function (resp) {
         //回调
         callback(resp);
-      }, { headers: { "Content-Type": "application/json" } });
+      });
     });
   },
   calculate: function (req, callback) {
@@ -39,10 +39,10 @@ let order = {
       };
 
       //创建临时订单
-      tools.ajax("api/order/calculate", JSON.stringify(orderReq), "POST", function (resp) {
+      tools.ajax("api/order/calculate", JSON.stringify(orderReq), "JSON", function (resp) {
         //回调
         callback(resp);
-      }, { headers: { "Content-Type": "application/json" } });
+      });
     });
   }
 };

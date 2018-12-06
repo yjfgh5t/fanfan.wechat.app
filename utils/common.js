@@ -2,7 +2,7 @@ import md5 from 'md5.js'
 import util from 'util.js'
 let tools = {
   //异步请求
-  ajax: function (pathname, data, method, success, option) {
+  ajax: function(pathname, data, method, success, option) {
 
     //进度条 
     wx.showLoading();
@@ -13,14 +13,22 @@ let tools = {
       if (option != undefined && option.network) {
         option.network(false);
       } else {
-        wx.showToast({ content: "无法连接到网络，请重试" });
+        wx.showToast({
+          icon: 'none',
+          title: "无法连接到网络，请重试"
+        });
       }
       return;
     }
 
     if (option == undefined) option = {};
 
-    if (option.headers == undefined) option.headers = {};
+    if(method=="JSON"){
+      method="POST";
+      option.headers = { "Content-Type": "application/json" }
+    }else{
+      option.headers = { "Content-Type": "application/x-www-form-urlencoded" }
+    }
 
     //固定信息
     let base = {
@@ -46,32 +54,39 @@ let tools = {
       data: data,
       dataType: 'json',
       timeout: 60000,
-      success: function (res) {
+      success: function(res) {
         hidenLoading = true;
         //隐藏加载条
         wx.hideLoading();
         if (res.data.code != 0) {
-          wx.showToast({ content: res.data.msg });
+          const msg = res.data.msg || '操作失败，请稍后重试';
+          wx.showToast({
+            icon: 'none',
+            title: msg
+          });
         }
         if (success) {
           success(res.data);
         }
       },
-      fail: function (res) {
+      fail: function(res) {
         if (option != undefined && option.network) {
           option.network(false);
         } else {
-          wx.showToast({ content: "无法连接到网络，请重试" });
+          wx.showToast({
+            icon: 'none',
+            title: "无法连接到网络，请重试"
+          });
         }
       },
-      complete: function (res) {
+      complete: function(res) {
         if (!hidenLoading)
           wx.hideLoading();
       }
     });
   },
   //获取授权Code
-  getUserInfo: function (success) {
+  getUserInfo: function(success) {
 
     let app = getApp();
 
@@ -80,61 +95,49 @@ let tools = {
       success(app.userInfo);
       return;
     }
-debugger
+
     //判断用户是否授权
     wx.getSetting({
-      success: function (res) {
-        console.log(res)
+      success: function(res) {
         //是否授权
         if (res.authSetting['scope.userInfo']) {
-          wx.getUserInfo({
-            success: (res) => {
-             console.log(res)
-            },
-            fail: (res) => {
-              wx.confirm({
-                content: '授权后才能继续执行哦！', // alert 框的标题
-                confirmButtonText: '继续授权',
-                cancelButtonText: '取消',
-                success: (res) => {
-                  tools.getAuthCode(success);
-                },
-              });
-            }
+          wx.login({success(lres){
+            wx.getUserInfo({
+              success: (res) => {
+                const sub ={
+                  code: lres.code,
+                  tpNick: res.userInfo.nickName,
+                  tpIcon: res.userInfo.avatarUrl,
+                  tpSex: res.userInfo.gender,
+                  tpProvince: res.userInfo.province,
+                  tpCity: res.userInfo.city,
+                };
+                tools.ajax("api/user/wxUser", JSON.stringify(sub),"JSON",function(hres){
+                    if(hres.code==0){
+                      //缓存用户数据
+                      wx.setStorageSync('userInfo', hres.data);
+                      app.userInfo = hres.data;
+                      success(hres.data)
+                    }
+                })
+              }
+            });
+          }
+          });
+        } else {
+          //确认再次授权
+          wx.showModal({
+            title: '授权提示',
+            content: '您还未授权,请先授权！', // alert 框的标题
+            confirmText: '好的',
+            showCancel: false
           });
         }
       }
     })
   },
-  // 微信用户登录
- async wxLogin (){
-   return new Promise(function(resolve,reject){
-     wx.login({
-       success(res){
-         //获取用户信息
-         tools.ajax("api/user/", { code: res.authCode, type: 1 }, "POST", function (resp) {
-           console.log(resp);
-           if (resp.code == 0) {
-             wx.setStorage({
-               key: 'userInfo', // 缓存数据的 key
-               data: resp.data, // 要缓存的数据
-               success: (res) => {
-                 //设置用户信息至app
-                 app.userInfo = resp.data;
-               },
-             });
-             //回调函数
-             resolve(resp.data);
-           }else{
-             wx.showToast({ content: "获取用户信息失败，请稍后重试" });
-           }
-         });
-       }
-     })
-   });
-  },
   //设置全局变量
-  setParams: function (objKey, objVal) {
+  setParams: function(objKey, objVal) {
     //设置本地值
     let globalData = getApp().globalData;
 
@@ -142,7 +145,7 @@ debugger
 
   },
   //获取全局变量
-  getParams: function (objKey, del) {
+  getParams: function(objKey, del) {
     let globalData = getApp().globalData;
 
     let val = globalData[objKey];
@@ -155,8 +158,10 @@ debugger
     }
     return val;
   },
-  getSign: function (params) {
+  getSign: function(params) {
 
   }
 };
-export { tools };
+export {
+  tools
+};

@@ -1,0 +1,105 @@
+<view class="block d-pad-bottom" style="text-align:center;">
+  <image src="{{defaultImg}}" wx:if="{{order.mainImg==''}}" class="head-img def" />
+  <image src="{{order.mainImg}}" wx:else="{{order.mainImg!=''}}" mode="aspectFit" class="head-img" />
+  <view>
+    <text class="wait-pay">{{order.orderStateText}} </text>
+  </view>
+
+  <block wx:if="{{order.orderState==103}}">
+    <view>
+      <text class="t-muted" style="line-height:50rpx;">逾期未支付，订单将自动取消</text>
+    </view>
+    <view style="line-height:80rpx;">
+      <text class="btn btn-defcolor" onTap="bindChanel">取消订单 </text>
+      <text class="btn" onTap="binPay">立即支付（{{endPayText}}）</text>
+    </view>
+  </block>
+</view>
+
+
+
+<view class="block d-mar">
+  <view class="d-pad  border-line">
+    <text>商品列表</text>
+  </view>
+  <view class="d-pad" wx:for="{{order.commoditys}}">
+    <text class="t-muted t-title">{{item.title}}</text>
+    <text class="t-price t-muted">￥{{item.price}}</text>
+    <text class="t-count t-muted">x {{item.count}}</text>
+  </view>
+  <view class="d-pad" wx:for="{{order.others}}">
+    <text class="t-muted">{{item.title}}</text>
+    <text class="t-price t-muted">￥{{item.price}}</text>
+    <text class="t-count t-muted"></text>
+  </view>
+
+  <view class="d-pad border-line-top" wx:if="{{order.orderPayType==payType.alipay}}" style="overflow: hidden;">
+    <text class="t-price t-pay">实付￥{{order.pay}}</text>
+  </view>
+  <view class="d-pad border-line-top" wx:if="{{order.orderPayType==paType.offline}}" style="overflow: hidden;">
+    <text class="t-price t-pay" wx:if="order.orderState==orderState.businessPending || order.orderState==orderState.businessCancel">待付￥{{order.pay}}</text>
+    <text class="t-price t-pay" wx:else>实付￥{{order.pay}}</text>
+  </view>
+</view>
+
+<view class="block d-mar">
+  <view class="d-pad border-line">
+    <text>订单信息</text>
+  </view>
+
+  <view class="d-pad-left t-muted">
+    <block wx:if="{{order.orderState!=103}}">
+      <view class="d-pad-tb border-line">
+        排队号：{{order.dateNum}}
+      </view>
+      <view class="d-pad-tb border-line">
+        订单号：{{order.orderNum}}
+      </view>
+      <view class="d-pad-tb border-line" hidden="order.deskNum==''">
+        桌号：{{order.deskNum}}
+      </view>
+    </block>
+    <view class="d-pad-tb border-line">
+      支付方式：{{order.orderPayTypeText}}
+    </view>
+    <view class="d-pad-tb border-line">
+      就餐方式：{{order.orderTypeText}}
+    </view>
+    <view class="d-pad-tb border-line">
+      下单时间：{{order.createTime}}
+    </view>
+
+    <view class="d-pad-tb border-line">
+      发票信息：不需要发票
+    </view>
+
+    <view class="d-pad" style="overflow: hidden;">
+      <text class="t-price t-pay">{{order.orderStateText}}</text>
+    </view>
+  </view>
+</view>
+
+
+<view class="block d-mar" wx:if="{{order.orderType==3}}">
+  <view class="d-pad border-line">
+    <text>配送信息</text>
+  </view>
+
+  <view class="d-pad-left t-muted">
+    <view class="d-pad-tb border-line">
+      送达时间：尽快送达
+    </view>
+
+    <view class="d-pad-tb border-line">
+      <text style="display:block">送货地址：{{order.receiver.name}}({{order.receiver.sex}})</text>
+      <text style="display:block;margin-left:140rpx;">{{order.receiver.tel}}</text>
+      <text style="display:block;margin-left:140rpx;">{{order.receiver.addrDetail}}</text>
+    </view>
+
+    <view class="d-pad-tb border-line">
+      配送方式：蜂鸟快送
+    </view>
+  </view>
+</view>
+
+<view class="block d-mar"></view>

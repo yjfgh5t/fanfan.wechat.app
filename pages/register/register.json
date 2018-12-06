@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "商户注册",
+  "usingComponents": {
+    "layer": "/component/layer/layer"
+  }
+}

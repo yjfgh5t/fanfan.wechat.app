@@ -1,0 +1,91 @@
+
+<view class="block d-pad border-line">
+   商品列表
+</view>
+
+<!--遍历菜单-->
+<block wx:for="{{order.menuArry}}" >
+    <view class="block d-pad">
+      <text class="t-title"> {{item.title}}</text>
+      <text class="t-right t-price">￥{{item.price}}</text>
+      <text class="t-right t-count t-muted">x {{item.count}}</text>
+    </view>
+</block>
+
+<!--遍历优惠券-->
+<block wx:for="{{order.activeArry}}">
+    <view class="block">
+        <view class="d-pad left">
+           <text class="t-active t-active-{{item.atype}}"></text> {{item.title}}<text class="t-right t-price" style="color:red;">￥{{item.price}}</text>
+        </view>
+    </view> 
+</block>
+
+<!--其它费用 餐盒、配送费-->
+<block wx:for="{{order.otherArry}}">
+    <view class="block">
+        <view class="d-pad left">
+          <text class="t-title">{{item.title}}</text>
+          <text class="t-right t-price">￥{{item.price}}</text>
+        </view>
+    </view> 
+</block>
+ 
+<view class="block d-pad txt-order border-line-top" style="text-align:right;">
+    <text class="t-muted">订单￥{{order.total}}</text> <text class="t-muted">优惠￥{{order.discount}}</text> <text>待付款￥{{order.pay}}</text>
+</view>
+
+<view class="block d-mar">
+  <view class="d-pad left border-line v-picker">付款方式    
+    <view style="display:inline-block;" class="t-muted t-right arrow">
+      <picker value="{{index}}" range="{{payType.data}}" onChange="bindPayType" range-key="text">
+       {{payType.selected>-1?payType.data[payType.selected].text:'请选择付款方式'}}
+      </picker>
+    </view>
+  </view>
+</view>
+
+<view class="block" style="overflow: hidden" hidden="{{!order.orderType!=3}}">    选择地址 
+  <text class="arrow t-right" style="max-width:480rpx;" bindtap="bindChoiseAddr">        {{order.addr.addrDetail==''?'未选择':'['+order.addr.name+'] '+order.addr.addrDetail}}    </text>
+</view>
+
+<view class="block">
+  <view class="d-pad left border-line v-picker">
+   用餐人数
+    <view style="display:inline-block;text-align:right;" class="t-muted t-right arrow">
+       <picker value="{{index}}" range="{{dinner}}" onChange="bindDinner" range-key="text">
+           {{dinnerIndex>-1?dinner[dinnerIndex].text:'便于商家带够餐具'}}
+      </picker>
+    </view>
+</view>
+</view>
+
+<view class="block">
+  <view class="d-pad left border-line">
+   订单备注<text class="t-muted t-right t-remark arrow" wx:if="{{order.remark!=''}}" bindtap="bindRemark" >{{order.remark}}</text>
+   <text class="t-muted t-right arrow t-empty" wx:if="{{order.remark==''}}"  bindtap="bindRemark">设置口味、偏好</text>
+</view>
+</view>
+
+<view class="block" >
+  <view class="d-pad left border-line">
+   发票信息<text class="t-muted t-right arrow">{{order.invoice}}</text>
+</view>
+</view>
+
+<view class="block d-pad-tb" style="overflow: hidden;">
+    <view class="view-type {{order.orderType==1?'active':''}}" data-val="1" catchtap="bindOrderType">
+     <image src="{{order.orderType==1?orderImg.tangchiA:orderImg.tangchi}}" mode="aspectFit" />
+     <text>堂吃</text>
+    </view>
+    <view class="view-type {{order.orderType==2?'active':''}}" data-val="2" catchtap="bindOrderType">
+        <image src="{{order.orderType==2?orderImg.dabaoA:orderImg.dabao}}" mode="aspectFit" />
+        <text>打包</text>
+    </view>
+</view>
+
+<view style="height:180rpx;"></view>
+<view class="car-foot">
+    <text class="cf-price">待支付￥{{order.pay}}</text><text class="cf-desc">|已优惠{{order.discount}}</text> 
+    <text class="cf-btn" bindtap="bindSubmit">提交订单</text>
+</view>

@@ -1,0 +1,40 @@
+<view class="block noright d-mar order" wx:for="{{orders}}" data-id="{{item.id}}" bindtap="bindDetail">
+  <view class="d-pad noright" style="overflow: hidden;">
+    <image src="{{defaultImg}}" wx:if="{{item.pic==''}}" class="v-img" mode="scaleToFill" />
+    <image src="{{item.pic}}" wx:else="{{item.pic!=''}}" class="v-img" mode="scaleToFill" />
+    <view class="border-line v-text">
+      <text class="d-title title arrow">{{item.title}}</text>
+      <text class="order-state">{{item.orderStateText}}</text>
+      <text class="time">{{item.orderTime}}</text>
+      <text class="commodity-size">{{item.ortherRemark}}</text>
+    </view>
+  </view>
+  <view class="d-pad border-line noright" style="padding-top:0rpx;padding-bottom:0rpx;overflow: hidden;clear:both;">
+    <image class="v-img none" />
+    <view class="v-text none">
+      <text class="remark">{{item.dateNum}}</text>
+      <text class="d-title order-state">￥{{item.pay}}</text>
+    </view>
+  </view>
+
+  <view class="d-pad border-line process">
+    <view class="line"></view>
+    <view class="line active-3"></view>
+    <text class="point point-1 active"><text class="state-text">商家正在备货</text></text>
+    <text class="point point-2 active"><text class="state-text">小哥正在配送中</text></text>
+    <text class="point point-3 active"><text class="state-text">订单已签收</text></text>
+  </view>
+
+  <block wx:if="{{item.orderState==103 && item.endPayText!=''}}">
+    <view class="d-pad border-line" style="overflow: hidden;text-align:right;">
+      <text class="btn" catchTap="bindPay" data-id="{{item.id}}" data-alipay="{{item.alipayOrderStr}}">
+        立即支付（{{item.endPayText}}）
+      </text> 
+      </view>
+</block>
+
+</view>
+
+<view class="loadmore">
+  <text bindtap="privLoadData">{{loadMoerText}}</text>
+</view>

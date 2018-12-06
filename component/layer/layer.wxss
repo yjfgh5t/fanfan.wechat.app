@@ -1,0 +1,63 @@
+/**遮罩层***/
+.view-mark{
+    background: rgba(0, 0, 0,0.3);
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 5;
+}
+
+.view-layer{
+    position: absolute;
+    width: 70%;
+    left: 15%;
+    z-index: 5;
+    top: 20%;
+    background-color: white;
+    font-size: 30rpx;
+    border-radius: 20rpx 20rpx 20rpx 20rpx;
+}
+
+.view-layer .title{
+  line-height: 80rpx;
+  height: 80rpx;
+  text-align: center;
+  border-bottom: 1rpx solid #e1e1e1;
+}
+
+.view-layer .content{
+  padding: 15rpx;
+}
+
+.view-layer .foot{
+  clear: both;
+  line-height: 80rpx;
+  height: 80rpx;
+  border-top: 1rpx solid #e1e1e1;
+}
+
+.foot .btn{
+  color: #ccc;
+  font-size: 32rpx;
+  display: block;
+  float: left;
+  text-align: center;
+}
+
+.foot.one .btn{
+  width: 98%;
+}
+
+.foot.two .btn{
+  width: 48%;
+}
+
+.foot .btn.cancle{
+  border-right: 1rpx solid #ccc;
+}
+
+.foot .btn.confirm{
+  color: #0085ff;
+}

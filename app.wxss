@@ -1,10 +1,95 @@
-/**app.wxss**/
-.container {
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-between;
-  padding: 200rpx 0;
-  box-sizing: border-box;
-} 
+page{
+  font-family: 'Helvetica Neue',Tahoma,Arial,PingFangSC-Regular,'Hiragino Sans GB','Microsoft Yahei',sans-serif;
+  font-size:30rpx; 
+}
+
+.block{
+    background-color:#fff;
+    position: relative; 
+}
+
+.arrow{
+    position: relative; 
+    padding-right: 28rpx;
+    color: #ccc;
+}
+
+.t-muted{
+    color: rgba(0, 0, 0, .65);
+}
+
+.d-title{
+    font-size:28rpx;
+    font-weight:600;
+    color: #333;
+}
+
+.arrow:after,.arrow::before{
+    right: -10rpx;
+    width: 0;
+    height: 0;
+    border: 16rpx solid transparent;
+    border-left-color: white;
+    position: absolute;
+    content: "";
+}
+.arrow:before{
+    right: -14rpx;
+    border-left-color:#ccc;
+}
+   
+.d-pad{
+    padding:28rpx;
+}
+.d-pad.left{
+    margin-left:28rpx;
+    padding-left:0rpx;
+}
+
+.d-pad.noright{
+    padding-right: 0rpx;
+}
+
+.d-pad-tb{
+    padding: 28rpx 0rpx;
+}
+.d-pad-bottom{
+   padding-bottom:28rpx;
+}
+
+.d-pad-left{
+    padding-left: 28rpx;
+}
+
+.d-mar{
+    margin-top: 20rpx;
+}
+
+.border-line{
+    border-bottom: 1rpx solid #e5e5E5;
+}
+.border-line-top{
+  border-top: 1rpx solid #e5e5e5;
+}
+
+.from-input,.form-input:disabled{
+    border:0px;
+    line-height:28rpx;
+    padding-left:4rpx;
+    font-size: 28rpx;
+    color: #666;
+    background-color: #fff;
+}
+
+ 
+
+textarea.form-textarea{
+    font-size: 24rpx;
+    color: #666 !important;
+}
+
+.btn{
+    padding: 18rpx;
+    text-align: center;
+    color: orangered;
+}

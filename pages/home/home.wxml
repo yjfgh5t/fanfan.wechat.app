@@ -15,7 +15,7 @@
   <view class="view-lay-norms" hidden="{{!norms.show}}">
       <view class="lay-norms-title">选择规格</view>
       <view class="lay-norms-con">
-          <text class="price">价格：<text>￥{{norms.selected.price}}</text></text>
+          <text class="price">价格：<text style="color:red;">￥{{norms.selected.price}}</text></text>
           <text class="text-norms">规格:</text>
           <view class="view-norms">
               <text  wx:for="{{norms.items}}" bindtap="bindSelNorms"  data-id="{{item.id}}"  class="{{item.id==norms.selected.id?'active':''}}">{{item.title}}</text>
@@ -29,13 +29,11 @@
 
   <!--购物车弹出层 -->
   <view class="view-lay-car">
-      <form onSubmit="formSubmit" report-submit="true">
+      <form bindsubmit="formSubmit" report-submit="true">
           <view class="car-title" hidden="{{!carData.show}}"> 
               <image src="{{btnCar}}" mode="aspectFit" class="img-car" />
               <text class="car-title-text">购物车</text>
-              <text bindtap="closeCar" class="icon-close"> 
-                  <image src="{{btnClose}}" mode="aspectFit"  class="img-car"/>
-              </text>
+              <image src="{{btnClose}}" bindtap="closeCar" class="icon-close" />
           </view>
           <view class="car-body" hidden="{{!carData.show}}">
               <view wx:for="{{carData.itemArry}}" class="lay-item">
@@ -51,7 +49,7 @@
           </view>
           <view class="car-foot">
               <text class="cf-price">￥{{carData.price}}</text><text class="cf-desc">|共{{carData.count}}份</text>
-              <button class="cf-btn bnt-bg" disabled="{{!(carData.price>=carData.minPrice && isBusiness)}}" formType="submit" bindtap="bindSubmit">去结算</button>
+              <button class="cf-btn bnt-bg" disabled="{{!(carData.price>=carData.minPrice && isBusiness)}}" formType="submit" open-type="getUserInfo" bindgetuserinfo="bindSubmit">去结算</button>
           </view>
       </form>
   </view>

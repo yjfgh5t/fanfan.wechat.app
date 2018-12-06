@@ -1,5 +1,9 @@
-import { tools } from '../../utils/common.js'
-import { order } from '../../utils/create-order.js'
+import {
+  tools
+} from '../../utils/common.js'
+import {
+  order
+} from '../../utils/create-order.js'
 Page({
   data: {
     name: 'hellow',
@@ -51,7 +55,13 @@ Page({
     recommend: {
       show: false,
       hasShow: [],
-      selected: { id: 1, showTitle: "", title: '', salePrice: 0.0, icon: '' },
+      selected: {
+        id: 1,
+        showTitle: "",
+        title: '',
+        salePrice: 0.0,
+        icon: ''
+      },
       data: [
         //{ id: 1, title: '', salePrice: 2.3, icon:''}
       ]
@@ -61,35 +71,39 @@ Page({
     // 加载状态 1：加载中 2:加载完成  3:加载异常
     loadState: 1
   },
-  onReady: function () {
+  onReady: function() {
     //初始加载数据
     getApp().loadData();
-    
+
     this.lazyLoad(this);
   },
-  onShow: function () {
+  onShow: function() {
     //清空购物车
     this.privClearCar();
     //this.initSubBtn();
   },
-  lazyLoad: function (that) {
+  lazyLoad: function(that) {
     if (getApp().config.customerId == -1) {
       console.log(1);
-      setTimeout(() => { that.lazyLoad(that) }, 1000);
+      setTimeout(() => {
+        that.lazyLoad(that)
+      }, 1000);
     } else {
       console.log(2);
       that.loadData();
     }
   },
   //加载数据
-  loadData: function () {
+  loadData: function() {
     let _this = this;
     let _app = getApp();
 
     //商品数据
-    tools.ajax('api/commodity/commodityWithCategory', {}, 'GET', function (res) {
+    tools.ajax('api/commodity/commodityWithCategory', {}, 'GET', function(res) {
       if (res.code == 0 && res.data.commodity && res.data.commodity.length > 0) {
-        wx.setNavigationBarTitle({ title: _app.config.shopName });
+        wx.setNavigationBarTitle({
+          title: _app.config.shopName
+        });
         //设置商品数据
         _this.setData({
           "itemArry": _this.convertComodity(res.data.commodity),
@@ -109,21 +123,28 @@ Page({
           let endTime = parseInt(_app.config.endBusiTime.replace(":", ""));
           let currentTime = parseInt(new Date().getHours() + '' + new Date().getMinutes())
           if (starTime > currentTime || endTime < currentTime) {
-            _this.setData({ "isBusiness": false, "restMessage": '店铺已打烊! 营业时间为 ' + _app.config.startBusiTime + ' - ' + _app.config.endBusiTime })
+            _this.setData({
+              "isBusiness": false,
+              "restMessage": '店铺已打烊! 营业时间为 ' + _app.config.startBusiTime + ' - ' + _app.config.endBusiTime
+            })
           }
         } else {
-          _this.setData({ "restMessage": '店铺已打烊! 请稍后再来！' })
+          _this.setData({
+            "restMessage": '店铺已打烊! 请稍后再来！'
+          })
         }
 
       } else {
-        _this.setData({ "loadState": 3 });
+        _this.setData({
+          "loadState": 3
+        });
       }
 
       _this.initContentHeight();
     });
 
     //推荐商品
-    tools.ajax('api/commodity/getRecommend', {}, 'GET', function (res) {
+    tools.ajax('api/commodity/getRecommend', {}, 'GET', function(res) {
       if (res.code == 0 && res.data && res.data.length > 0) {
         let data = res.data.map(item => {
           return {
@@ -133,14 +154,15 @@ Page({
             salePrice: item.salePrice
           }
         });
-        _this.setData({ "recommend.data": data });
-
+        _this.setData({
+          "recommend.data": data
+        });
       }
     });
 
   },
   //todo 初始化提交按钮
-  initSubBtn:function(){
+  initSubBtn: function() {
 
     let button = wx.createUserInfoButton({
       type: 'submit',
@@ -164,23 +186,24 @@ Page({
 
   },
   //显示购物车
-  showCar: function (e) {
+  showCar: function(e) {
     this.setData({
       'showMark': true,
       'carData.show': true,
-    }
-    );
+    });
   },
   //关闭购物车
-  closeCar: function (e) {
+  closeCar: function(e) {
     this.setData({
       'showMark': false,
       'carData.show': false,
     });
   },
-  itemAddMinus: function (e) {
+  itemAddMinus: function(e) {
     const option = e.target.dataset.option;
-    const commodity = { id: e.target.dataset.id };
+    const commodity = {
+      id: e.target.dataset.id
+    };
 
     //购物车中的commodityid
     if (e.target.dataset.commodityId) {
@@ -206,10 +229,17 @@ Page({
           show: true,
           items: model.norms
         }
-        this.setData({ norms: norms, showMark: true });
+        this.setData({
+          norms: norms,
+          showMark: true
+        });
         return;
       } else {
-        return wx.showToast({ content: '多规格商品需在购物车中删除' });
+        wx.showToast({
+          icon: 'none',
+          title: '多规格商品需在购物车中删除'
+        });
+        return;
       }
     }
     //包装数据
@@ -227,7 +257,7 @@ Page({
     this.addMinus(option, commodity);
   },
   //添加减去商品
-  addMinus: function (option, commodity) {
+  addMinus: function(option, commodity) {
     //选种的商品数据
     let carItemData = this.data.carData.itemArry;
     //商品Id数据
@@ -237,7 +267,13 @@ Page({
     if (carItemIds[commodity.id] == undefined) {
       //设置默认数据
       carItemIds[commodity.id] = 0;
-      carItemData.push({ id: commodity.id, title: commodity.title, salePrice: commodity.salePrice, commodityId: commodity.commodityId, type: commodity.type });
+      carItemData.push({
+        id: commodity.id,
+        title: commodity.title,
+        salePrice: commodity.salePrice,
+        commodityId: commodity.commodityId,
+        type: commodity.type
+      });
     }
 
     //添加数量
@@ -273,8 +309,9 @@ Page({
     }
 
     //计算总数量
-    let count = 0, price = 0;
-    carItemData.forEach(function (item) {
+    let count = 0,
+      price = 0;
+    carItemData.forEach(function(item) {
       count += carItemIds[item.id];
       price += carItemIds[item.id] * item.salePrice;
     });
@@ -288,17 +325,19 @@ Page({
     });
   },
   //选择规格
-  bindSelNorms: function (e) {
+  bindSelNorms: function(e) {
     const id = e.target.dataset.id;
     let _this = this;
-    this.data.norms.items.forEach(function (item) {
+    this.data.norms.items.forEach(function(item) {
       if (item.id === id) {
-        _this.setData({ "norms.selected": item });
+        _this.setData({
+          "norms.selected": item
+        });
         return false;
       }
     });
   },
-  bindChoiseNorms: function (e) {
+  bindChoiseNorms: function(e) {
     let sure = e.target.dataset.sure;
     if (sure == 'true') {
       let norms = this.data.norms;
@@ -311,28 +350,44 @@ Page({
       };
       this.addMinus('add', commodity);
     }
-    this.setData({ "norms.show": false, "showMark": false });
+    this.setData({
+      "norms.show": false,
+      "showMark": false
+    });
   },
   //提交按钮
-  bindSubmit: function (e) {
-    //刷新显示推荐商品
-    if (this.data.recommend.data.length > 0 && this.data.recommend.hasShow.length < this.data.recommend.data.length) {
-      this.bindRefreshRecommend();
+  bindSubmit: function(e) {
+    console.log(e);
+    if (e.detail.rawData) {
+      //刷新显示推荐商品
+      if (this.data.recommend.data.length > 0 && this.data.recommend.hasShow.length < this.data.recommend.data.length) {
+        this.bindRefreshRecommend();
+      } else {
+        //直接提交
+        this.privSubmitMain();
+      }
     } else {
-      //直接提交
-      this.privSubmitMain();
+      //确认再次授权
+      wx.showModal({
+        title: '授权提示',
+        content: '授权后才能继续执行哦！', // alert 框的标题
+        confirmText: '好的',
+        cancelText: '取消'
+      });
     }
   },
   //form提交事件
-  formSubmit: function (e) {
+  formSubmit: function(e) {
     if (e.detail.formId) {
-      tools.ajax('api/formId/', { formId: e.detail.formId }, 'POST', function (res) {
+      tools.ajax('api/formId/', {
+        formId: e.detail.formId
+      }, 'POST', function(res) {
         console.log(res.code)
       })
     }
   },
   //刷新推荐
-  bindRefreshRecommend: function () {
+  bindRefreshRecommend: function() {
     let length = this.data.recommend.data.length;
     if (this.data.recommend.hasShow.length < length) {
       let index = Math.floor(Math.random() * 10) % length
@@ -347,7 +402,11 @@ Page({
       //是否选择了改推荐商品
       if (this.data.carData.itemIdArry[selected.id] == undefined) {
         selected.showTitle = selected.title;
-        this.setData({ "recommend.selected": selected, "recommend.show": true, "showMark": "true" });
+        this.setData({
+          "recommend.selected": selected,
+          "recommend.show": true,
+          "showMark": "true"
+        });
       } else {
         this.bindRefreshRecommend();
       }
@@ -355,7 +414,8 @@ Page({
       //如果现实推荐中 则提示
       if (this.data.recommend.show) {
         wx.showToast({
-          content: "没有更多的推荐了"
+          icon: 'none',
+          title: "没有更多的推荐了"
         });
       } else {
         //提交订单
@@ -364,12 +424,15 @@ Page({
     }
   },
   //关闭推荐
-  bindCloseRecommend: function () {
-    this.setData({ "recommend.show": false, "showMark": false });
+  bindCloseRecommend: function() {
+    this.setData({
+      "recommend.show": false,
+      "showMark": false
+    });
     this.privSubmitMain();
   },
   //添加推荐商品
-  bindAddRecommend: function () {
+  bindAddRecommend: function() {
     let selected = this.data.recommend.selected;
     //包装数据
     let commodity = {
@@ -385,14 +448,14 @@ Page({
     this.bindCloseRecommend();
   },
   //提交订单
-  privSubmitMain: function () {
+  privSubmitMain: function() {
     //选择的菜单
     let idArry = this.data.carData.itemIdArry;
 
     let itemArry = this.data.carData.itemArry;
 
     //订单详情集合
-    let details = itemArry.map(function (item) {
+    let details = itemArry.map(function(item) {
       return {
         outId: item.id,
         outSize: idArry[item.id],
@@ -402,20 +465,21 @@ Page({
     });
 
     //订单计价
-    order.calculate({ detailList: details }, function (resp) {
+    order.calculate({
+      detailList: details
+    }, function(resp) {
       if (resp.code == 0) {
         //订单信息存入全局变量
         tools.setParams("temOrder", resp.data);
-
         //跳转
         wx.navigateTo({
-          url: '/pages/order/order-sure/order-sure'
+          url: '/pages/order-sure/order-sure'
         });
       }
     })
   },
   //清空购物车
-  privClearCar: function () {
+  privClearCar: function() {
 
     //是否清空购物车
     let clearCar = tools.getParams("clearCar", true);
@@ -434,19 +498,19 @@ Page({
       this.changeCategory(null);
     }
   },
-  userClick: function () {
+  userClick: function() {
     wx.navigateTo({
-      url: '/pages/me/me'
+      url: '/pages/user-setting/user-setting'
     })
   },
   //转换商品数据
-  convertComodity: function (commoditys) {
+  convertComodity: function(commoditys) {
     let tempCommodity = [];
-    commoditys.forEach(function (item) {
+    commoditys.forEach(function(item) {
 
       let norms = [];
       if (item.extendList != null && item.extendList.length > 0) {
-        norms = item.extendList.map(function (item) {
+        norms = item.extendList.map(function(item) {
           return {
             id: item.id,
             price: item.commodityPrice,
@@ -470,11 +534,13 @@ Page({
 
     return tempCommodity;
   },
-  bindContact: function () {
-    wx.navigateTo({ url: '/pages/register/register' });
+  bindContact: function() {
+    wx.navigateTo({
+      url: '/pages/register/register'
+    });
   },
   //选择分类
-  changeCategory: function (obj) {
+  changeCategory: function(obj) {
     console.log(obj)
     let choiseId = -1;
     //默认选择第一个
@@ -490,7 +556,7 @@ Page({
     }
 
     if (choiseId != -1) {
-      let categoryCommodity = this.data.itemArry.filter(function (item) {
+      let categoryCommodity = this.data.itemArry.filter(function(item) {
         return item.categoryId == choiseId;
       })
 
@@ -501,7 +567,7 @@ Page({
     }
   },
   //设置高度
-  initContentHeight: function () {
+  initContentHeight: function() {
     //设置高度
     let _that = this;
     wx.getSystemInfo({
@@ -511,7 +577,9 @@ Page({
           console.log(JSON.stringify(win))
           if (ret[0] != null) {
             let height = win.windowHeight - ret[0].height;
-            _that.setData({ "viewContentHeight": height })
+            _that.setData({
+              "viewContentHeight": height
+            })
           }
         })
       },

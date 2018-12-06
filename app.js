@@ -11,7 +11,7 @@ App({
   },
   //配置信息
   config: {
-    apiHost: 'http://wxcard.com.cn/', //'http://localhost:8081/',
+    apiHost: 'http://localhost:8081/', //'http://wxcard.com.cn/',
     networkAvailable: true,
     //店铺名称
     showName: "",
@@ -28,7 +28,7 @@ App({
     //商户Id 
     customerId: -1,
     //客户端类型
-    clientType: 'AlipayMiniprogram',
+    clientType: 'WechatMiniprogram',
     //是否显示跳转提交联系人我们提示
     showContact: false,
     //版本
@@ -45,6 +45,9 @@ App({
   },
   //全局对象
   globalData: {},
+  constant:{
+    errorIcon:'/imgs/icon_btn_jg.png'
+  },
   onError: function () {
     console.log('出错')
   },

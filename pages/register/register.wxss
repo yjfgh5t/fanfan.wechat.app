@@ -1,0 +1,156 @@
+page{
+  font-family: 'Helvetica Neue',Tahoma,Arial,PingFangSC-Regular,'Hiragino Sans GB','Microsoft Yahei',sans-serif;
+  font-size:32rpx; 
+  background: linear-gradient(rgb(6, 103, 249) 0px, rgb(255, 255, 255) 100%);
+}
+
+.notice{
+  background:rgb(247, 186, 96);
+  color: orangered;
+  display:block;
+  line-height:70rpx;
+  padding:0rpx 20rpx;
+  position: relative;
+  font-size: 28rpx;
+}
+.notice-img{
+  width:32rpx;
+  height: 32rpx;
+  display: inline-block;
+  position: relative;
+  top: 5rpx;
+}
+.notice-text{
+  margin-left: 10rpx;
+}
+.notice-look{
+  display: inline-block;
+  position: absolute;
+  right: 20rpx;
+}
+
+.form{
+  width: 90%;
+  margin-left: 5%;
+  display: block;
+}
+
+.view-input{
+  display: block;
+  background-color: rgba(0,0,0,0.1);
+  color: white;
+  line-height: 100rpx;
+  height: 100rpx;
+  padding:0rpx 18rpx;
+  margin-top: 30rpx;
+}
+
+.view-input .input-text{
+  display: block;
+  float: left;
+  margin-left: 20rpx;
+  width: 140rpx;
+}
+
+.view-input .input{
+  width: 360rpx;
+  background: none;
+  display: block;
+  height: 100rpx;
+  float: left;
+  margin: 0rpx 0rpx 0rpx 30rpx;
+  padding: 0rpx;
+  color: white;
+}
+.input.code{
+  width: 260rpx;
+}
+
+.view-input .input-placeholder{
+  color: #ccc;
+  font-size: 28rpx;
+}
+
+
+
+
+.input-list{
+  background: none;
+}
+
+.input-list .input{
+  background: none;
+  color: white;
+  border: none;
+}
+
+.input-list .input view{
+  color: white;
+}
+.input-list .input input{
+    background: rgba(185, 182, 182, 0.17);
+    padding: 0;
+    color: white;
+}
+.input-placeholder{
+  font-size:30rpx; 
+  color:#ccc;
+  padding-left: 10rpx;
+}
+.modal-code{
+  width:500rpx;
+  overflow:hidden;
+}
+.modal-code text,.modal-code input,.modal-code image{
+  display: block; 
+  line-height: 80rpx;
+  height: 80rpx;
+  float: left;
+  margin-left: 0.2rem;
+  font-size: 32rpx;
+}
+.modal-code image{
+  width: 150rpx;
+}
+.modal-code input{
+  width: 220rpx;
+  margin-left:20rpx
+}
+.img-code{
+  width: 1.6rem;
+}
+
+.code-btn{
+  color: white;
+  border-radius: 10rpx;
+  background:  linear-gradient(to right,rgb(154, 106, 247) 0px, rgb(8, 79, 185) 100%);
+  font-size: 28rpx;
+  padding: 10rpx;
+  float: right;
+  height: 40rpx;
+  line-height: 40rpx;
+  margin-top: 20rpx;
+}
+
+.btn-regist{
+  border: 0px;
+  background:  linear-gradient(to right,rgb(154, 106, 247) 0px, rgb(8, 79, 185) 100%);
+}
+
+.view-describe{
+    padding: 20rpx;
+}
+.view-describe text{
+    font-size: 28rpx;
+    display: block;
+    line-height: 40rpx;
+    color: white;
+}
+
+.modal-about{
+  text-align: left;
+}
+.modal-about text{
+ display: inline-block;
+ overflow: hidden;
+}

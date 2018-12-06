@@ -1,0 +1,64 @@
+page {
+  background-color: #eee;
+}
+
+.t-title{
+  width: 400rpx;
+  display: inline-block;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+}
+.t-price{
+    float: right;
+    min-width: 130rpx;
+    text-align: right;
+}
+
+.t-count{
+    float: right;
+    padding-right: 50rpx;
+    width: 100rpx;
+}
+
+.t-pay{
+    color: orangered;
+}
+
+.order-title{
+    max-width:520rpx;
+    display:inline-block;
+}
+
+.order-state{
+    color: orange;
+    float: right;
+}
+
+.head-img{
+    width:128rpx;
+    height:128rpx;
+    border:1rpx solid #ccc;
+    border-radius: 50%;
+}
+.head-img.def{
+  border: none;
+}
+
+.wait-pay{
+    font-size:32rpx;
+    line-height:60rpx;
+}
+
+.btn{
+    line-height:40rpx;
+    border:1px solid #ccc;
+    padding:8rpx 30rpx;
+}
+
+.btn-defcolor{
+    color: #000;
+    margin-right: 20rpx;
+}
+
+

@@ -1,0 +1,44 @@
+<form bindsubmit="bindSubmit">
+<view class="block d-mar d-pad">
+    快速备注
+    <view class="d-pad">
+        <radio-group name="remarkPepper">
+            <label class="checkbox" wx:for="{{remarkPepper}}" style="margin-right:30rpx;font-size:24rpx;">
+                <radio value="{{item.title}}"  checked="{{item.checked}}" />
+                <text class="checkbox-text">{{item.title}}</text>
+            </label>
+        </radio-group> 
+    </view>
+    
+  <view class="d-pad">
+    <radio-group name="remarkSpicy" bindchange="bindRadio">
+      <label class="checkbox" wx:for="{{remarkSpicy}}" style="margin-right:30rpx;font-size:24rpx;">
+        <radio value="{{item.title}}" checked="{{item.checked}}" />
+        <text class="checkbox-text">{{item.title}}</text>
+      </label>
+    </radio-group>
+  </view>
+
+  <view class="d-pad"> 
+      <checkbox-group name="remarkOther">
+          <label class="checkbox" wx:for="{{remarkOther}}" style="margin-right:30rpx;font-size:24rpx;" >
+              <checkbox value="{{item.title}}" checked="{{item.checked}}" />
+              <text class="checkbox-text">{{item.title}}</text>
+          </label>
+      </checkbox-group> 
+  </view>
+
+</view>
+
+
+<view class="block d-mar d-pad">
+    其它备注
+    <view class="d-pad">
+        <textarea bindblur="bindTextAreaBlur" maxlength="60" name="remark" auto-height placeholder="请输入备注内容" value="{{remark}}" style="font-size:24rpx;" />
+    </view>
+</view>
+
+<view class="d-mar d-pad">
+     <button type="primary" formType="submit" style="font-size:32rpx;">确 定</button>
+</view>
+</form>

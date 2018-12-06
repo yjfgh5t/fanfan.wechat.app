@@ -1,0 +1,62 @@
+<view>
+  <view class="demo-item notice">
+    <image src='{{imgs.notice}}' class='notice-img' />
+    <text class='notice-text'>关于饭饭点餐</text>
+    <text class='notice-look' bindtap="bindNotifyClick">查看详情></text>
+  </view>
+
+<layer show="{{showImgCodeLayer}}" title="图形验证码" bindconfirm="sendMobileCode" bindcancel="bindModalClose" >
+  <solt>
+   <view class="modal-code">
+        <text>验证码</text>
+        <input type="text" placeholder="请输入图形验证码" value="{{codeModel.code}}" bindblur="onItemBlur" data-field="codeModel.code" auto-focus />
+        <image class="img-code" bindtap="refreshCodeImg" src="{{codeModel.imgCodeSrc}}" mode="aspectFit" />
+    </view>
+  </solt>
+</layer>
+
+<layer show="{{showAboutLayer}}" title="关于饭饭点餐" bindconfirm="bindConfirmAbout" cancelShow="{{false}}" bindcancel="bindModalClose" >
+  <solt>
+   <view class="modal-about">
+        <text>1. 饭饭点餐适用于线下实体店扫码点餐使用,主要用户快餐店、餐馆内顾客自助点餐。</text>
+        <text>2. 注册成功后，系统将发送饭饭点餐商户版APP下载地址至您的短信！请您注意查收，或复制           
+          <text style="display:inline;color:orange;">http://t.cn/Ew2ra6G</text> 此链接在浏览器中打开下载饭饭点餐商户版APP。        
+        </text>
+        <text>3. 请您加客服微信           
+          <text style="display:inline;color:orange;">yjfgh5t</text>，将会帮助您解决使用中的相关问题。        
+        </text>
+    </view>
+  </solt>
+</layer>
+
+
+  <!--form表单 -->
+  <view>
+    <form bindsubmit="bindSubmit" class="form">
+      <view class="view-input">
+        <text class="input-text">姓名</text>
+        <input placeholder="请输入商户姓名" class="input" placeholder-class="input-placeholder" name="name" placeholder="请输入商户姓名" type="text" bindblur="onItemBlur" data-field="model.name" />
+      </view>
+      <view class="view-input">
+        <text class="input-text">手机号</text>
+        <input placeholder="请输入手机号" class="input" placeholder-class="input-placeholder" name="mobile" placeholder="请输入手机号" type="number" bindblur="onItemBlur" data-field="model.mobile" />
+      </view>
+      <view class="view-input">
+        <text class="input-text">验证码</text>
+        <input placeholder="请输入验证码" class="input code" placeholder-class="input-placeholder" name="mobileCode" bindblur="onItemBlur" type="number" data-field="model.mobileCode" />
+        <text class="btn code-btn" bindtap="bindMobileCode">{{codeModel.text}}</text>
+      </view>
+      <view class="view-input">
+        <text class="input-text">密码</text>
+        <input placeholder="请输入密码6-18位" class="input" placeholder-class="input-placeholder" type="text" password="true" name="pwd" bindblur="onItemBlur" placeholder="请输入密码6-18位" data-field="model.pwd" />
+      </view>
+      <view class="view-input">
+        <text class="input-text">确认密码</text>
+        <input placeholder="请输入确认密码6-18位" class="input" placeholder-class="input-placeholder" type="text" password="true" name="confirmPwd" bindblur="onItemBlur" data-field="model.confirmPwd" />
+      </view>
+      <view style="margin: 10px;">
+        <button formType="submit" class="btn-regist" type="primary">注 册</button>
+      </view>
+    </form>
+  </view>
+</view>

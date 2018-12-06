@@ -1,0 +1,27 @@
+<view class="block d-pad" style="background-color:#0085ff;overflow:hidden;">
+    <image src="{{model.icon}}" class="head-img" mode="aspectFit" />
+    <view class="user-dec">
+    	<text class="flt head-text">{{model.nick}}</text>
+    	<text class="flt head-dec"></text>
+    </view>
+</view>
+
+<view class="block d-pad arrow" bindtap="bindCoupon" hidden="true" >
+    <text class="icon" style="background-image: url('{{model.iconCoupon}}')"></text>
+    <text class="i-title">我的优惠券</text>
+</view>
+
+<view class="block d-pad arrow" bindtap="bindAddr" hidden="true" >
+    <text class="icon" style="background-image: url('{{iconAddr}}')"></text>
+    <text class="i-title">收货地址</text>
+</view>
+<view class="block d-pad arrow" bindtap="bindOrder" >
+    <text class="icon" style="background-image: url('{{iconOrder}}')"></text>
+    <text class="i-title">我的订单</text>
+</view>
+
+<view style="margin-top:50rpx;"></view>
+<view bindtap="bindExit" class="login-bnt">
+    <text>退出登录</text>
+</view> 
+

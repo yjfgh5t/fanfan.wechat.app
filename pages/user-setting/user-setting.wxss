@@ -1,0 +1,72 @@
+.icon{
+    width: 42rpx;
+    height: 42rpx;
+    display: inline-block;
+    background-size: cover;
+    line-height: 42rpx;
+    position: relative;
+    top: 11rpx;
+    margin-right: 15rpx;
+}
+
+.head-img{
+    width:120rpx;
+    height:120rpx;
+    display:inline-block;
+    float:left;
+    border:4rpx solid #fff;
+    padding:8rpx;
+    border-radius: 50%;
+    background-size: 100rpx;
+}
+
+.i-title{
+    display:inline-block;
+    line-height:42rpx;
+}
+
+.arrow{
+    color: #333;
+    border-bottom:solid 2rpx #efeeee;
+}
+.arrow::before,.arrow::after{
+    top: 50%;
+    margin-top:-14rpx; 
+    right: 20rpx;
+    border-left-color: #fff;
+}
+
+.arrow::before{
+   border-left-color: #333;
+    right: 18rpx;
+}
+.d-mar{
+    margin-top:0
+}
+.user-dec{
+    display: block;
+    color: white;
+    line-height: 32rpx;
+    height: 120rpx;
+    float: left;
+    margin-left: 20rpx;
+}
+.head-text{
+    font-size: 40rpx;
+}
+.head-dec{
+    color: #f7f6f6;
+}
+/** 当需要head-dec时 padding-top: 30rpx;**/
+.user-dec .flt{
+    display: block;
+    padding-top: 50rpx;
+}
+.login-bnt{
+    color: orangered;
+    border: 2rpx solid #EC8B89;
+    margin: 14%;
+    text-align: center;
+    padding: 24rpx 0;
+    border-radius: 16rpx;
+}

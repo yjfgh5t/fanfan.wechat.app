@@ -1,0 +1,135 @@
+
+page {
+  background-color: #eee;
+  font-size: 30rpx;
+}
+.txt-order text{
+ margin-right: 20rpx;
+}
+.txt-order text:last-child{
+    margin-right: 0rpx;
+}
+.t-right{
+    float: right;
+    min-width: 130rpx;
+}
+.t-title{
+  width: 400rpx;
+  display: inline-block;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+}
+.t-price{
+  text-align: right;
+}
+.t-right.t-count{
+    min-width: 80rpx;
+}
+
+.arrow:after,.arrow::before{
+     border: 12rpx solid transparent;
+     border-left-color: #ccc;
+     top: 4rpx;
+}
+
+.arrow:after{
+    right: -10rpx;
+    border-left-color:#fff;
+}
+
+
+.v-picker div{
+    display: inline;
+}
+
+/**下单按钮**/
+.car-foot{
+    line-height:100rpx;
+    height:100rpx;
+    background-color:#666;
+    overflow: hidden;
+    position: fixed;
+    bottom: 0; 
+    width: 100%;
+}
+.cf-price{
+    margin-left:25rpx;
+    font-size:32rpx;
+    color:#fff;
+}
+.cf-desc{
+    font-size:24rpx;
+    color:#999;
+    margin-left:3rpx;
+    display:inline-block;
+}
+.cf-btn{
+    float:right;
+    background-color:#4cd964;
+    color:#fff;
+    padding:0rpx 40rpx;
+}
+.cf-btn.disable{
+    background-color:#535356;
+}
+
+/****优惠券****/
+.t-active{
+    display: inline-block;
+    line-height: 26rpx;
+    height: 26rpx; 
+    padding:4rpx 6rpx;
+    color:white;
+    margin-right:8rpx;
+    border-radius: 4rpx;
+}
+.t-active.t-active-1{
+  background-color: rgb(241, 136, 79);
+}
+.t-active.t-active-1::before{
+ content:"特"; 
+}
+.t-active.t-active-2{
+  background-color: rgb(112, 188, 70);
+}
+.t-active.t-active-2::before{
+    content: "减";
+}
+
+/***图片****/
+.view-type{
+    width:240rpx;
+    border: 2rpx solid #ccc;
+    text-align: center;
+    border-radius: 20rpx;
+    float: left;
+    margin-left:85rpx; 
+    padding: 8rpx 0rpx;
+}
+
+.view-type image{
+    width: 120rpx;
+    height: 120rpx;
+}
+.view-type text{
+    display: block;
+    margin-top: 5rpx;
+}
+
+.view-type.active{
+    border-color: #1296db;
+    color: #1296db;
+}
+
+/****描述****/
+.t-remark{
+max-width:450rpx;
+  overflow:hidden;
+    text-overflow:ellipsis;
+      white-space:nowrap;
+}
+
+.t-empty{
+  color: orangered;
+}
