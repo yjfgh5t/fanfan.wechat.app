@@ -16,6 +16,7 @@ Page({
     btnUser: '/imgs/icon_head.png',
     imgError: '/imgs/img_error.png',
     btnRecommend: '/imgs/icon_recommend.png',
+    imgNotice: '/imgs/icon_notice.png',
     restMessage: '',
     showMark: false,
     //是否营业中

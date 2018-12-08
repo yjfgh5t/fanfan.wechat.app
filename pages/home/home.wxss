@@ -14,14 +14,33 @@
 }
 
 /**通知**/
-.notice{
-position: absolute;
+.notice-view{
+position: fixed;
 z-index: 9;
 width: 100%;
 }
 
 .notice-empty{
   height: 70rpx;
+}
+.notice{
+  background:rgb(247, 186, 96);
+  color: orangered;
+  display:block;
+  line-height:70rpx;
+  padding:0rpx 20rpx;
+  position: relative;
+  font-size: 28rpx;
+}
+.notice-img{
+  width:32rpx;
+  height: 32rpx;
+  display: inline-block;
+  position: relative;
+  top: 5rpx;
+}
+.notice-text{
+  margin-left: 10rpx;
 }
 
 /**用户头像**/

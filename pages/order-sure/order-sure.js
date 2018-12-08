@@ -309,10 +309,10 @@ Page({
       if (resp.code == 0 && resp.data != null) {
         let data = [],
           selected = 0;
-        if (resp.data.alipay) {
+        if (resp.data.wechat) {
           data.push({
-            id: 1,
-            text: '支付宝'
+            id: 2,
+            text: '微信'
           })
         }
         if (resp.data.offline) {

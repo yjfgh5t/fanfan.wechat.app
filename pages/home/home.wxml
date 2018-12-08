@@ -3,8 +3,11 @@
 </view>
 <view wx:elif="{{loadState==2}}">
   <!-- 营业时间通告 -->
-  <view class="notice" wx:if="{{!isBusiness}}">
-    <notice>{{restMessage}}</notice>
+  <view class="notice-view" wx:if="{{!isBusiness}}">
+    <view class="notice">
+      <image src='{{imgNotice}}' class='notice-img' />
+      <text class='notice-text'>{{restMessage}}</text>
+    </view>
   </view>
 <view class="notice-empty" wx:if="{{!isBusiness}}"></view>
 
