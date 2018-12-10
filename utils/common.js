@@ -7,6 +7,14 @@ let tools = {
     wx.showLoading();
 
     let app = getApp();
+
+    let request = { 
+      url: app.config.apiHost + pathname,
+      method: method,
+      data:data,
+      headers: {}
+    };
+
     if (!app.config.networkAvailable) {
       wx.hideLoading();
       if (option != undefined && option.network) {
@@ -20,17 +28,15 @@ let tools = {
       return;
     }
 
-    if (option == undefined) option = {};
-
-    if(method=="JSON"){
-      method="POST";
-      option.headers = { "Content-Type": "application/json" }
+    if (request.method=="JSON"){
+      request.method="POST";
+      request.headers = { "Content-Type": "application/json" }
     }else{
-      option.headers = { "Content-Type": "application/x-www-form-urlencoded" }
+      request.headers = { "Content-Type": "application/x-www-form-urlencoded" }
     }
 
     //设置令牌
-    option.headers['x-auth-token'] = app.config.authToken;
+    request.headers['x-auth-token'] = app.config.authToken;
 
     //固定信息
     let base = {
@@ -41,16 +47,15 @@ let tools = {
       time: new Date().getTime()
     };
     //设置header 固定数据
-    option.headers.base = JSON.stringify(base);
+    request.headers.base = JSON.stringify(base);
 
     let hidenLoading = false;
-
     //请求
     wx.request({
-      url: getApp().config.apiHost + pathname,
-      method: method,
-      header: option.headers,
-      data: data,
+      url: request.url,
+      method: request.method,
+      header: request.headers,
+      data: request.data,
       dataType: 'json',
       timeout: 60000,
       success: function(res) {
@@ -59,15 +64,19 @@ let tools = {
         wx.hideLoading();
         //需要登录
         if (res.statusCode == 401){
-          tools.autoLogin();
+            tools.autoLogin(function(hasSuccess){
+                //再次执行
+                if(hasSuccess){
+                  tools.ajax(pathname, data, method, success, option)
+                }
+            });
           return;
         }
 
         if (res.data.code != 0) {
-          const msg = res.data.msg || '操作失败，请稍后重试';
           wx.showToast({
             icon: 'none',
-            title: msg
+            title: res.data.msg || '操作失败，请稍后重试'
           });
         }
         if (success) {
@@ -91,13 +100,13 @@ let tools = {
     });
   },
   //获取授权Code
-  getUserInfo: function(success) {
+  getUserInfo: function(callback) {
 
     let app = getApp();
 
     //判断是否已经获取到用户信息
     if (app.userInfo.id != -1) {
-      success(app.userInfo);
+      callback(app.userInfo);
       return;
     }
     //判断用户是否授权
@@ -116,21 +125,12 @@ let tools = {
                   tpProvince: res.userInfo.province,
                   tpCity: res.userInfo.city,
                 };
-                tools.ajax("api/user/appUser/wxUser", JSON.stringify(sub),"JSON",function(hres){
+                tools.ajax("api/user/wechatSave", JSON.stringify(sub),"JSON",function(hres){
                     if(hres.code==0){
-                      const userInfo = {
-                        id: hres.data.userInfo.userId,
-                        userNick: hres.data.userInfo.tpNick,
-                        userIcon: hres.data.userInfo.tpIcon,
-                        userSex: hres.data.userInfo.tpSex
-                      }
-                      //缓存用户数据
-                      wx.setStorageSync('userInfo', userInfo);
-                      //设置用户信息
-                      getApp().userInfo = userInfo;
-                      //设置登录令牌
-                      getApp().config.authToken = hres.data.token;
-                      success(hres.data)
+                      tools.autoLogin(function(hasSuccess,userInfo){
+                        callback(userInfo)
+                      })
+                      
                     }
                 })
               }
@@ -139,7 +139,7 @@ let tools = {
           });
         } else {
           //确认再次授权
-          success(null)
+          callback(null)
         }
       }
     })
@@ -167,12 +167,28 @@ let tools = {
     return val;
   },
   //自动登录
-  autoLogin:function(){
-    tools.ajax('api/user/appUser/autoLogin', {}, function(res){
-      if(res.code==0){
-        getApp().config.authToken = res.data.token;
+  autoLogin:function(callback){
+    wx.login({
+      success(lres) {
+        tools.ajax('api/user/userAutoLogin', { code: lres.code},'POST', function (res) {
+          if (res.code == 0 && res.data!=null) {
+            const userInfo = {
+              id: res.data.userInfo.userId,
+              userNick: res.data.userInfo.tpNick,
+              userIcon: res.data.userInfo.tpIcon,
+              userSex: res.data.userInfo.tpSex
+            }
+            //设置用户信息
+            getApp().userInfo = userInfo;
+            //设置登录令牌
+            getApp().config.authToken = res.data.token;
+            callback(true,userInfo);
+          }else{
+            callback(false,null)
+          }
+        })
       }
-    })
+      });
   }
 };
 export {
