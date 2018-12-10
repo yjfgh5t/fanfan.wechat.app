@@ -85,7 +85,9 @@
 </view>
 
 <view style="height:180rpx;"></view>
-<view class="car-foot">
-    <text class="cf-price">待支付￥{{order.pay}}</text><text class="cf-desc">|已优惠{{order.discount}}</text> 
-    <text class="cf-btn" bindtap="bindSubmit">提交订单</text>
-</view>
+<form bindsubmit="formSubmit" report-submit="true">
+  <view class="car-foot">
+      <text class="cf-price">待支付￥{{order.pay}}</text><text class="cf-desc">|已优惠{{order.discount}}</text> 
+      <button class="cf-btn" bindtap="bindSubmit">提交订单</button>
+  </view>
+</form>

@@ -74,3 +74,20 @@
     padding: 24rpx 0;
     border-radius: 16rpx;
 }
+
+.user-aouth{
+  height:120rpx;
+  line-height:120rpx;
+  text-align:center;
+}
+
+.btn-aouth{
+  background-color: white;
+  font-size: 30rpx;
+  border-radius: 20rpx;
+  border: none;
+  border-color: white;
+  color: #0085ff;
+  height: 80rpx;
+  border-top: none;
+}

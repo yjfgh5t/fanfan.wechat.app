@@ -1,4 +1,3 @@
-import md5 from 'md5.js'
 import util from 'util.js'
 let tools = {
   //异步请求
@@ -30,6 +29,9 @@ let tools = {
       option.headers = { "Content-Type": "application/x-www-form-urlencoded" }
     }
 
+    //设置令牌
+    option.headers['x-auth-token'] = app.config.authToken;
+
     //固定信息
     let base = {
       clientType: app.config.clientType,
@@ -38,9 +40,6 @@ let tools = {
       version: app.config.version,
       time: new Date().getTime()
     };
-    //设置签名
-    base.sign = md5(base.clientType + '' + base.userId + '' + base.customerId + '' + base.version + '' + base.time + 'miniprogram');
-
     //设置header 固定数据
     option.headers.base = JSON.stringify(base);
 
@@ -58,6 +57,12 @@ let tools = {
         hidenLoading = true;
         //隐藏加载条
         wx.hideLoading();
+        //需要登录
+        if (res.statusCode == 401){
+          tools.autoLogin();
+          return;
+        }
+
         if (res.data.code != 0) {
           const msg = res.data.msg || '操作失败，请稍后重试';
           wx.showToast({
@@ -95,7 +100,6 @@ let tools = {
       success(app.userInfo);
       return;
     }
-
     //判断用户是否授权
     wx.getSetting({
       success: function(res) {
@@ -112,11 +116,20 @@ let tools = {
                   tpProvince: res.userInfo.province,
                   tpCity: res.userInfo.city,
                 };
-                tools.ajax("api/user/wxUser", JSON.stringify(sub),"JSON",function(hres){
+                tools.ajax("api/user/appUser/wxUser", JSON.stringify(sub),"JSON",function(hres){
                     if(hres.code==0){
+                      const userInfo = {
+                        id: hres.data.userInfo.userId,
+                        userNick: hres.data.userInfo.tpNick,
+                        userIcon: hres.data.userInfo.tpIcon,
+                        userSex: hres.data.userInfo.tpSex
+                      }
                       //缓存用户数据
-                      wx.setStorageSync('userInfo', hres.data);
-                      app.userInfo = hres.data;
+                      wx.setStorageSync('userInfo', userInfo);
+                      //设置用户信息
+                      getApp().userInfo = userInfo;
+                      //设置登录令牌
+                      getApp().config.authToken = hres.data.token;
                       success(hres.data)
                     }
                 })
@@ -126,12 +139,7 @@ let tools = {
           });
         } else {
           //确认再次授权
-          wx.showModal({
-            title: '授权提示',
-            content: '您还未授权,请先授权！', // alert 框的标题
-            confirmText: '好的',
-            showCancel: false
-          });
+          success(null)
         }
       }
     })
@@ -158,8 +166,13 @@ let tools = {
     }
     return val;
   },
-  getSign: function(params) {
-
+  //自动登录
+  autoLogin:function(){
+    tools.ajax('api/user/appUser/autoLogin', {}, function(res){
+      if(res.code==0){
+        getApp().config.authToken = res.data.token;
+      }
+    })
   }
 };
 export {

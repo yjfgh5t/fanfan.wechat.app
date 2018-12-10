@@ -379,7 +379,8 @@ Page({
   },
   //form提交事件
   formSubmit: function(e) {
-    if (e.detail.formId) {
+    
+    if (getApp().userInfo.Id!=-1 && e.detail.formId) {
       tools.ajax('api/formId/', {
         formId: e.detail.formId
       }, 'POST', function(res) {

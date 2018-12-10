@@ -4,14 +4,12 @@ App({
   userInfo: {
     id: -1,
     userNick: '',
-    userMobile: '',
     userIcon: '',
     userSex: 1,
-    userState: 1
   },
   //配置信息
   config: {
-    apiHost: 'http://localhost:8081/', //'http://wxcard.com.cn/',
+    apiHost: 'http://localhost:8081/', //'https://wxcard.com.cn/',
     networkAvailable: true,
     //店铺名称
     showName: "",
@@ -35,6 +33,7 @@ App({
     version: "1.0.1",
     //支付宝付款
     shopId: -1,
+    authToken: '',
   },
   // 参数
   params: {

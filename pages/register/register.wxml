@@ -6,18 +6,15 @@
   </view>
 
 <layer show="{{showImgCodeLayer}}" title="图形验证码" bindconfirm="sendMobileCode" bindcancel="bindModalClose" >
-  <solt>
-   <view class="modal-code">
+   <view slot="content" class="modal-code">
         <text>验证码</text>
         <input type="text" placeholder="请输入图形验证码" value="{{codeModel.code}}" bindblur="onItemBlur" data-field="codeModel.code" auto-focus />
         <image class="img-code" bindtap="refreshCodeImg" src="{{codeModel.imgCodeSrc}}" mode="aspectFit" />
     </view>
-  </solt>
 </layer>
 
 <layer show="{{showAboutLayer}}" title="关于饭饭点餐" bindconfirm="bindConfirmAbout" cancelShow="{{false}}" bindcancel="bindModalClose" >
-  <solt>
-   <view class="modal-about">
+   <view slot="content" class="modal-about">
         <text>1. 饭饭点餐适用于线下实体店扫码点餐使用,主要用户快餐店、餐馆内顾客自助点餐。</text>
         <text>2. 注册成功后，系统将发送饭饭点餐商户版APP下载地址至您的短信！请您注意查收，或复制           
           <text style="display:inline;color:orange;">http://t.cn/Ew2ra6G</text> 此链接在浏览器中打开下载饭饭点餐商户版APP。        
@@ -26,7 +23,6 @@
           <text style="display:inline;color:orange;">yjfgh5t</text>，将会帮助您解决使用中的相关问题。        
         </text>
     </view>
-  </solt>
 </layer>
 
 

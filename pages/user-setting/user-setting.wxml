@@ -25,3 +25,12 @@
     <text>退出登录</text>
 </view> 
 
+<!--弹出授权框-->
+<layer show="{{showLayerAouth}}" title="用户授权" confirmText="授权" cancelShow="{{false}}" confirmShow="{{false}}">
+   <view slot="content" class='user-aouth'>您还未授权，请先授权</view>
+   <view slot="foot">
+    <form style='border:none;'>
+    <button class="btn-aouth" open-type="getUserInfo" bindgetuserinfo="onLoad">授权</button>
+    </form>
+   </view>
+</layer>

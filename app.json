@@ -1,12 +1,12 @@
 {
   "pages": [
     "pages/home/home",
+    "pages/user-setting/user-setting",
     "pages/register/register",
     "pages/order-sure/order-sure",
     "pages/index/index",
     "pages/log/log",
     "pages/order-remark/order-remark",
-    "pages/user-setting/user-setting",
     "pages/order-detail/order-detail",
     "pages/order-list/order-list"
   ],

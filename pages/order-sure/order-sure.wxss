@@ -68,7 +68,10 @@ page {
     float:right;
     background-color:#4cd964;
     color:#fff;
-    padding:0rpx 40rpx;
+    height:100rpx;
+    line-height:100rpx;
+    border-radius:0rpx;
+
 }
 .cf-btn.disable{
     background-color:#535356;

@@ -7,14 +7,19 @@ Page({
     model: {
       icon: '/imgs/icon_head_a.png',
       nick: '',
-    }
+    },
+    showLayerAouth:false
   },
   onLoad: function (e) {
 
     let _this = this;
 
     tools.getUserInfo((user) => {
-      _this.setData({ model: { icon: user.userIcon, nick: user.userNick } });
+      if(user==null){
+        _this.setData({ showLayerAouth:true});
+      }else{
+        _this.setData({ model: { icon: user.userIcon, nick: user.userNick }, showLayerAouth:false });
+      }
     });
 
   },

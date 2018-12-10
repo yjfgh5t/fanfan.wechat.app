@@ -7,12 +7,13 @@
     <view class='title'>{{title}}</view>
 
     <view class="content">
-      <slot style="width:100%;"></slot>
+      <slot name="content" style="width:100%;"></slot>
     </view>
 
     <view class="{{(cancelShow && confirmShow) ? 'foot two':'foot one'}}">
       <text class="btn cancle" wx:if="{{cancelShow}}" catchtap="cancel">{{cancelText}}</text>
       <text class="btn confirm" wx:if="{{confirmShow}}" catchtap="confirm">{{confirmText}}</text>
+      <slot name="foot"></slot>
     </view>
 
   </view>

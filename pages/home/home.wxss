@@ -485,10 +485,10 @@ width: 100%;
     float:right;
     background-color:#4cd964;
     color:#fff;
-    padding:0rpx 40rpx;
     border:none;
     font-size: 36rpx;
     height: 100rpx;
+    line-height: 100rpx;
     border-radius: 0rpx;
 }
 .cf-btn.disable{
