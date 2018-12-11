@@ -71,7 +71,6 @@ page {
     height:100rpx;
     line-height:100rpx;
     border-radius:0rpx;
-
 }
 .cf-btn.disable{
     background-color:#535356;

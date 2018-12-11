@@ -189,7 +189,8 @@ Page({
    formSubmit: function (e) {
     if (e.detail.formId) {
       tools.ajax('api/formId/', {
-        formId: e.detail.formId
+        formId: e.detail.formId,
+        tpId: getApp().userInfo.userTpId
       }, 'POST', function (res) {
         console.log(res.code)
       })

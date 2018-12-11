@@ -379,10 +379,11 @@ Page({
   },
   //form提交事件
   formSubmit: function(e) {
-    
-    if (getApp().userInfo.Id!=-1 && e.detail.formId) {
+    let app = getApp();
+    if (app.userInfo.Id!=-1 && e.detail.formId) {
       tools.ajax('api/formId/', {
-        formId: e.detail.formId
+        formId: e.detail.formId,
+        tpId: app.userInfo.userTpId
       }, 'POST', function(res) {
         console.log(res.code)
       })

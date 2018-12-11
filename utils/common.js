@@ -130,7 +130,6 @@ let tools = {
                       tools.autoLogin(function(hasSuccess,userInfo){
                         callback(userInfo)
                       })
-                      
                     }
                 })
               }
@@ -176,7 +175,8 @@ let tools = {
               id: res.data.userInfo.userId,
               userNick: res.data.userInfo.tpNick,
               userIcon: res.data.userInfo.tpIcon,
-              userSex: res.data.userInfo.tpSex
+              userSex: res.data.userInfo.tpSex,
+              userTpId: res.data.userInfo.tpId
             }
             //设置用户信息
             getApp().userInfo = userInfo;

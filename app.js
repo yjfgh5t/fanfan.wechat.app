@@ -6,6 +6,7 @@ App({
     userNick: '',
     userIcon: '',
     userSex: 1,
+    userTpId: ''
   },
   //配置信息
   config: {
@@ -68,14 +69,10 @@ App({
     });
 
     //设置用户信息
-    wx.getStorage({
-      key: 'userInfo', // 缓存数据的 key
-      success: (res) => {
-        if (res != null && res.data != null) {
-          _this.userInfo = res.data;
-        }
-      },
-    });
+    let userInfo = wx.getStorageSync('userInfo');
+    if(userInfo!=null){
+      this.userInfo = userInfo;
+    }
   },
   onShow: function (option) {
 
