@@ -1,0 +1,27 @@
+<view wx:for="{{addrArry}}" class="block d-pad addr-item addr-block" bindtap="bindChoise" data-id="{{item.id}}" data-index="{{index}}">
+        <text class="name">{{item.name}}</text> 
+        <text class="sex">{{item.sex}}</text>
+        <text>{{item.tel}}</text>
+        <text class="t-muted addrDetail">{{item.district+item.street}}{{item.detail}}</text>
+        <text wx:if="{{choise}}" class="arrow choise"></text>
+          <image wx:if="{{!choise}}" data-index="{{index}}" bindtap="bindEdit" src="{{btnEdit}}" mode="aspectFit" class="edit" style="width:40rpx;height:40rpx;" />
+</view>
+
+<view wx:if="{{addrArry.length==0}}" class="noorder">
+    <text>您还没有添加收货地址哦</text>
+</view>
+
+<view wx:if="{{choise && overRangeArray.length>0}}">
+  <view class="over-desc">以下地址操作配送范围</view>
+  <view wx:for="{{overRangeArray}}" class="block d-pad addr-item addr-block" data-id="{{item.id}}" data-index="{{index}}">
+          <text class="name">{{item.name}}</text> 
+          <text class="sex">{{item.sex}}</text>
+          <text>{{item.tel}}</text>
+          <text class="t-muted addrDetail">{{item.district+item.street}}{{item.detail}}</text>
+  </view>
+</view>
+
+<view style="padding-top:80rpx;color:white;"></view>
+<view class="add" bindtap="bindEdit" data-id="0" >
+        <text> 新增 </text>
+</view>

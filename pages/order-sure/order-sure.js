@@ -15,7 +15,9 @@ Page({
       dabao: '/imgs/icon_order_db_0.png',
       dabaoA: '/imgs/icon_order_db_1.png',
       tangchi: '/imgs/icon_order_tc_0.png',
-      tangchiA: '/imgs/icon_order_tc_1.png'
+      tangchiA: '/imgs/icon_order_tc_1.png',
+      takeout: '/imgs/icon_order_wm_0.png',
+      takeoutA: '/imgs/icon_order_wm_1.png'
     },
     dinner: [{
         id: 1,
@@ -66,6 +68,8 @@ Page({
       }],
       selected: 0
     },
+    //外卖类型
+    orderType: { tangchi: 1, dabao: 2, takeout: 3 },
     order: {
       //菜单
       menuArry: [{
@@ -118,6 +122,8 @@ Page({
         name: ''
       }
     },
+    //是否外卖
+    takeout: false,
     //临时订单信息 
     temOrder: {}
   },
@@ -176,13 +182,13 @@ Page({
       getApp().globalData.orderRemark = this.data.orderRemark;
     }
     wx.navigateTo({
-      url: '/pages/order-remark/order-remark', // 需要跳转的应用内非 tabBar 的页面的路径，路径后可以带参数。参数与路径之间使用
+      url: '/pages/order-remark/order-remark'
     });
   },
   //选择地址
   bindChoiseAddr: function(e) {
     wx.navigateTo({
-      url: '/pages/me-addr/me-addr?choise=true', // 需要跳转的应用内非 tabBar 的页面的路径，路径后可以带参数。参数与路径之间使用
+      url: '/pages/address/address?choise=true'
     });
   },
   //提交formId
@@ -338,7 +344,8 @@ Page({
             data: data,
             selected: selected
           },
-          "order.orderPayType": data[selected].id
+          "order.orderPayType": data[selected].id,
+          "takeout": resp.data.takeout
         });
       }
     });
@@ -378,7 +385,7 @@ Page({
   //订单类型
   bindOrderType: function(e) {
     console.log(e);
-    let val = e.currentTarget.dataset.val;
+    let val = e.currentTarget.dataset.value;
     this.setData({
       "order.orderType": val
     });

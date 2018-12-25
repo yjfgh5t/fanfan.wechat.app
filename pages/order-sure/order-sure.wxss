@@ -1,7 +1,6 @@
 
 page {
   background-color: #eee;
-  font-size: 30rpx;
 }
 .txt-order text{
  margin-right: 20rpx;
@@ -12,6 +11,7 @@ page {
 .t-right{
     float: right;
     min-width: 130rpx;
+    text-align: right;
 }
 .t-title{
   width: 400rpx;
@@ -26,11 +26,17 @@ page {
 .t-right.t-count{
     min-width: 80rpx;
 }
+.t-cut{
+  max-width:460rpx; 
+  overflow:hidden; 
+  text-overflow:ellipsis; 
+  white-space:nowrap;
+}
 
 .arrow:after,.arrow::before{
      border: 12rpx solid transparent;
      border-left-color: #ccc;
-     top: 4rpx;
+     top: 12rpx;
 }
 
 .arrow:after{
@@ -68,9 +74,12 @@ page {
     float:right;
     background-color:#4cd964;
     color:#fff;
-    height:100rpx;
+    padding:0rpx 40rpx;
+    border:none;
+    font-size: 36rpx;
     line-height:100rpx;
-    border-radius:0rpx;
+    height:100rpx;
+    border-radius: 0rpx;
 }
 .cf-btn.disable{
     background-color:#535356;
@@ -124,14 +133,12 @@ page {
     color: #1296db;
 }
 
-/****描述****/
-.t-remark{
-max-width:450rpx;
-  overflow:hidden;
-    text-overflow:ellipsis;
-      white-space:nowrap;
+.view-three-item .view-type{
+  width:200rpx;
+  margin-left:32rpx; 
 }
 
-.t-empty{
-  color: orangered;
+.view-three-item .view-type image{
+    width: 100rpx;
+    height: 100rpx;
 }

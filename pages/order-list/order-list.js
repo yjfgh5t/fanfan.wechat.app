@@ -56,15 +56,12 @@ Page({
     let index = (_this.data.pageIndex - 1) * 10;
 
     tools.getUserInfo((user) => {
-
       let _orders = {};
-
       const subData = {
         userId: user.id,
         pageIndex: _this.data.pageIndex,
         pageSize: 10
       };
-
       //获取订单列表 
       tools.ajax("api/order/query", JSON.stringify(subData), "JSON", function(resp) {
         if (resp.code != 0) {

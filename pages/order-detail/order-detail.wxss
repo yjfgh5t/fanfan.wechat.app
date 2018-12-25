@@ -61,4 +61,23 @@ page {
     margin-right: 20rpx;
 }
 
+.text-tel{
+  color: #1296db;
+  line-height: 38rpx;
+  display: inline-block;
+  position: relative;
+}
+.icon-tel{
+  width: 38rpx;
+  height: 38rpx;
+  display: inline-block;
+  top: 10rpx;
+  margin-right: 5rpx;
+  position: relative;
+}
+
+.icon-tel image{
+    width: 38rpx;
+  height: 38rpx;
+}
 

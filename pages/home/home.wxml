@@ -99,7 +99,7 @@
 
   <!--提示层-->
   <view class="view-contact-msg" bindtap="bindContact" hidden="{{!showContact}}">
-      此为体验版 点此免费安装<text class="install">点餐程序</text>
+      此为体验版 点此注册<text class="install">免费使用</text>
   </view>
 
   <!--用户按钮-->

@@ -10,9 +10,9 @@ App({
   },
   //配置信息
   config: {
-    apiHost: 'http://localhost:8081/', //'https://wxcard.com.cn/',
+    apiHost: 'https://wxcard.com.cn/', //'http://localhost:8081/',
     networkAvailable: true,
-    //店铺名称
+    //店铺名称 
     showName: "",
     //最低起送价 默认0.01 不做外卖 无需设置改值
     minTakePrice: 0.01,
@@ -70,7 +70,7 @@ App({
 
     //设置用户信息
     let userInfo = wx.getStorageSync('userInfo');
-    if(userInfo!=null){
+    if(userInfo!=null && userInfo!=""){
       this.userInfo = userInfo;
     }
   },

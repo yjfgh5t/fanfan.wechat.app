@@ -30,6 +30,10 @@
   <view>
     <form bindsubmit="bindSubmit" class="form">
       <view class="view-input">
+        <text class="input-text">店铺名称</text>
+        <input placeholder="请输入店铺名称" class="input" placeholder-class="input-placeholder" name="shopName" type="text" bindblur="onItemBlur" data-field="model.shopName" />
+      </view>
+      <view class="view-input">
         <text class="input-text">姓名</text>
         <input placeholder="请输入商户姓名" class="input" placeholder-class="input-placeholder" name="name" placeholder="请输入商户姓名" type="text" bindblur="onItemBlur" data-field="model.name" />
       </view>

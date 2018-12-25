@@ -73,8 +73,11 @@
       发票信息：不需要发票
     </view>
 
-    <view class="d-pad" style="overflow: hidden;">
-      <text class="t-price t-pay">{{order.orderStateText}}</text>
+    <view class="d-pad pad-tb noleft" style="overflow: hidden;"> 
+         <view class="text-tel t-customer" data-value="{{order.customerTel}}" bindtap="bindCall">
+            <image src="{{telImg}}" class="icon-tel" mode="aspectFit" /> 联系商家
+        </view>
+         <text class="t-price t-pay">{{order.orderStateText}}</text> 
     </view>
   </view>
 </view>
@@ -84,21 +87,23 @@
   <view class="d-pad border-line">
     <text>配送信息</text>
   </view>
-
   <view class="d-pad-left t-muted">
-    <view class="d-pad-tb border-line">
-      送达时间：尽快送达
-    </view>
-
-    <view class="d-pad-tb border-line">
-      <text style="display:block">送货地址：{{order.receiver.name}}({{order.receiver.sex}})</text>
-      <text style="display:block;margin-left:140rpx;">{{order.receiver.tel}}</text>
-      <text style="display:block;margin-left:140rpx;">{{order.receiver.addrDetail}}</text>
-    </view>
-
-    <view class="d-pad-tb border-line">
-      配送方式：蜂鸟快送
-    </view>
+        <view class="d-pad-tb border-line">
+            配送时间：尽快送达
+        </view>
+        <view class="d-pad-tb border-line"> 
+            <view style="display:block;overflow: hidden;">
+              <view style="float:left;">配送地址：</view>
+              <view style="float:left;max-width:520rpx;">
+                <text>{{order.receiver.name}}({{order.receiver.sex}})</text>
+                <text style="display:block;">{{order.receiver.tel}}</text>
+                <text style="display:block;">{{order.receiver.addrDetail}}</text>
+              </view>
+            </view>
+        </view> 
+        <view class="d-pad-tb border-line" wx:if="{{order.receiver.deliveryName!=''}}">
+            配送人：<view class="text-tel" data-value="{{order.receiver.deliveryTel}}" bindtap="bindCall"> <image src="{{telImg}}" class="icon-tel" mode="aspectFit" /> 联系配送人</view> | {{order.receiver.deliveryName}}
+        </view>
   </view>
 </view>
 

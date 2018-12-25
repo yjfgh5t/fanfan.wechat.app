@@ -8,7 +8,9 @@
     "pages/log/log",
     "pages/order-remark/order-remark",
     "pages/order-detail/order-detail",
-    "pages/order-list/order-list"
+    "pages/order-list/order-list",
+    "pages/address/address",
+    "pages/address-edit/address-edit"
   ],
   "window": {
     "backgroundTextStyle": "light",

@@ -101,7 +101,6 @@ let tools = {
   },
   //获取授权Code
   getUserInfo: function(callback) {
-
     let app = getApp();
 
     //判断是否已经获取到用户信息

@@ -20,7 +20,8 @@ Page({
       pwd: '',
       confirmPwd: '',
       name: '',
-      mobileCode: ''
+      mobileCode: '',
+      shopName: ''
     }
   },
   onShow: function() {},
@@ -128,6 +129,12 @@ Page({
   },
   bindSubmit: function() {
     let _this = this
+    if (_this.data.model.shopName === '') {
+      return wx.showToast({
+        icon: 'none',
+        title: '请输入店铺名称'
+      });
+    }
     if (_this.data.model.name === '') {
       return wx.showToast({
         icon: 'none',
@@ -184,18 +191,19 @@ Page({
     }
 
     let subData = {
-      code: _this.data.model.mobileCode,
+      imgCode: _this.data.model.mobileCode,
       userId: 0,
       name: _this.data.model.name,
       mobile: _this.data.model.mobile,
-      password: _this.data.model.pwd
+      code: _this.data.model.pwd,
+      shopName: _this.data.model.shopName
     }
     // 执行注册
-    tools.ajax('api/user/customer/register', JSON.stringify(subData), 'POST', function(res) {
+    tools.ajax('api/user/customer/register', JSON.stringify(subData), 'JSON', function(res) {
       if (res.code === 0 && res.data !== '') {
         wx.showModal({
           title: '提示',
-          content: '注册成功，请查收短信,点击短信中的链接下载商户版APK',
+          content: '注册成功，请查收短信,点击短信中的链接下载商户版APP',
           showCancel:false,
           success: function() {
             //返回首页
@@ -204,10 +212,6 @@ Page({
             })
           }
         })
-      }
-    }, {
-      headers: {
-        "Content-Type": "application/json"
       }
     });
   },

@@ -45,8 +45,11 @@
   </view>
 </view>
 
-<view class="block" style="overflow: hidden" hidden="{{!order.orderType!=3}}">    选择地址 
-  <text class="arrow t-right" style="max-width:480rpx;" bindtap="bindChoiseAddr">        {{order.addr.addrDetail==''?'未选择':'['+order.addr.name+'] '+order.addr.addrDetail}}    </text>
+<view class="block" style="overflow: hidden" wx:if="{{order.orderType==orderType.takeout}}" >
+   <view class="d-pad left border-line">收货地址
+   <text class="t-muted t-right arrow t-empty t-cut"  bindtap="bindChoiseAddr">{{order.addr.addrDetail==''?'未选择':'['+order.addr.name+'] '+order.addr.addrDetail}}
+    </text>
+  </view>
 </view>
 
 <view class="block">
@@ -73,15 +76,19 @@
 </view>
 </view>
 
-<view class="block d-pad-tb" style="overflow: hidden;">
-    <view class="view-type {{order.orderType==1?'active':''}}" data-val="1" catchtap="bindOrderType">
-     <image src="{{order.orderType==1?orderImg.tangchiA:orderImg.tangchi}}" mode="aspectFit" />
-     <text>堂吃</text>
-    </view>
-    <view class="view-type {{order.orderType==2?'active':''}}" data-val="2" catchtap="bindOrderType">
-        <image src="{{order.orderType==2?orderImg.dabaoA:orderImg.dabao}}" mode="aspectFit" />
-        <text>打包</text>
-    </view>
+<view class="block d-pad-tb {{takeout?'view-three-item':''}}"  style="overflow: hidden;">
+  <view class="view-type {{order.orderType==orderType.tangchi?'active':''}}" data-value="{{orderType.tangchi}}" catchtap="bindOrderType">
+    <image src="{{order.orderType==orderType.tangchi?orderImg.tangchiA:orderImg.tangchi}}" mode="aspectFit" />
+    <text>堂吃</text>
+  </view>
+  <view class="view-type {{order.orderType==orderType.takeout?'active':''}}" hidden="{{!takeout}}" data-value="{{orderType.takeout}}" catchtap="bindOrderType">
+    <image src="{{order.orderType==orderType.takeout?orderImg.takeoutA:orderImg.takeout}}" mode="aspectFit" />
+    <text>外卖</text>
+  </view>
+  <view class="view-type {{order.orderType==orderType.dabao?'active':''}}" data-value="{{orderType.dabao}}" catchtap="bindOrderType">
+    <image src="{{order.orderType==orderType.dabao?orderImg.dabaoA:orderImg.dabao}}" mode="aspectFit" />
+    <text>打包</text>
+  </view>
 </view>
 
 <view style="height:180rpx;"></view>

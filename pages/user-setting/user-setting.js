@@ -10,11 +10,10 @@ Page({
     },
     showLayerAouth:false
   },
-  onLoad: function (e) {
-
+  onShow: function (e) {
     let _this = this;
-
     tools.getUserInfo((user) => {
+      console.log(user)
       if(user==null){
         _this.setData({ showLayerAouth:true});
       }else{
@@ -27,7 +26,7 @@ Page({
     wx.navigateTo({ url: "/pages/me/me-coupon/me-coupon" });
   },
   bindAddr: function (e) {
-    wx.navigateTo({ url: "/pages/me/me-addr/me-addr" });
+    wx.navigateTo({ url: "/pages/address/address" });
   },
   bindExit: function () {
     wx.removeStorageSync({

@@ -7,6 +7,7 @@ import {
 Page({
   data: {
     defaultImg: '/imgs/img_item_default.png',
+    telImg: '/imgs/icon_tel.png',
     order: {
       name: "",
       commoditys: [{
@@ -29,7 +30,9 @@ Page({
         name: '',
         sex: '',
         tel: '',
-        addrDetail: ''
+        addrDetail: '',
+        deliveryName:'',
+        deliveryTel:  ''
       }
     },
     endPayText: '',
@@ -95,6 +98,10 @@ Page({
       }
     });
   },
+  bindCall: function (e) {
+    let tel = e.target.dataset.value;
+    wx.makePhoneCall({ phoneNumber: tel });
+  },
   privLoadData: function(orderId) {
 
     let _this = this;
@@ -112,6 +119,8 @@ Page({
           sex: resp.data.receiver.sex,
           tel: resp.data.receiver.tel,
           addrDetail: resp.data.receiver.addrDetail,
+          deliveryName: resp.data.receiver.deliveryName || '',
+          deliveryTel: resp.data.receiver.deliveryTel || ''
         }
       }
 
@@ -129,9 +138,11 @@ Page({
         deskNum: resp.data.orderDeskNum,
         alipayOrderStr: resp.data.alipayOrderStr,
         orderTypeText: resp.data.orderTypeText,
+        orderType: resp.data.orderType,
         orderPayTypeText: resp.data.orderPayTypeText,
         commoditys: [],
         others: [],
+        customerTel: resp.data.customerTel,
         receiver: receiver
       };
 
@@ -179,7 +190,7 @@ Page({
         //设置参数
         //tools.setParams("orderNum",_this.data.order.orderNum);
         //跳转值首页
-        my.redirectTo("/pages/home/home");
+        wx.redirectTo("/pages/home/home");
       };
 
       let second = endTiemSecond % 60,

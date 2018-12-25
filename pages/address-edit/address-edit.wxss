@@ -1,0 +1,44 @@
+.d-pad.border-line{
+  overflow: hidden;
+}
+.t-title{
+   font-size:30rpx;
+  width:160rpx;
+  display:block;
+  height:50rpx;
+  line-height:50rpx;
+  padding:0rpx;
+  margin:0rpx;
+  float:left;
+}
+
+.edit-right{
+    display:inline-block;
+    width:506rpx;
+    padding-left:0rpx;
+}
+
+.from-input{
+  display: inline-block;
+}
+
+.from-input,.form-input:disabled{
+    color: #000;
+}
+
+.addr{
+  width: 90%;
+}
+
+
+
+.arrow:after,.arrow::before{
+     border: 12rpx solid transparent;
+     border-left-color: #ccc;
+     top: 19rpx;
+}
+
+.arrow:after{
+    right: -10rpx;
+    border-left-color:#fff;
+}
