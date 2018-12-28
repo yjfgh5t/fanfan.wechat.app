@@ -47,25 +47,22 @@ Page({
   bindAddr: function (e) {
     let that = this;
     //获取当前地址
-    wx.chooseLocation({
-      complete:function(res){
-        console.log(res)
-        if (res.errMsg == "chooseLocation:ok"){
-          if (res.address == ""){
-            wx.showToast({
-              icon: 'none',
-              title: '请选择地址'
-            })
-          }else{
-            that.setData({
-              "model.street": res.address,
-              "model.lat": res.latitude,
-              "model.lng": res.longitude
-              });
-          }
+    tools.getPermissions('scope.userLocation').then(function (res) {
+      if (res.code == 0) {
+        if (res.address == "") {
+          wx.showToast({
+            icon: 'none',
+            title: '请选择地址'
+          })
+        } else {
+          that.setData({
+            "model.street": res.address,
+            "model.lat": res.latitude,
+            "model.lng": res.longitude
+          });
         }
       }
-    })
+    });
   },
   bindSubmit: function (e) {
     console.log(e);

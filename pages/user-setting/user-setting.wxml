@@ -12,11 +12,11 @@
 </view>
 
 <view class="block d-pad arrow" bindtap="bindAddr" >
-    <text class="icon" style="background-image: url('{{iconAddr}}')"></text>
+    <image class="icon" src="{{iconAddr}}" mode="aspectFit" />
     <text class="i-title">收货地址</text>
 </view>
 <view class="block d-pad arrow" bindtap="bindOrder" >
-    <text class="icon" style="background-image: url('{{iconOrder}}')"></text>
+    <image class="icon" src="{{iconOrder}}" mode="aspectFit"  />
     <text class="i-title">我的订单</text>
 </view>
 
@@ -30,7 +30,7 @@
    <view slot="content" class='user-aouth'>您还未授权，请先授权</view>
    <view slot="foot">
     <form style='border:none;'>
-    <button class="btn-aouth" open-type="getUserInfo" bindgetuserinfo="onLoad">授权</button>
+    <button class="btn-aouth" open-type="getUserInfo" bindgetuserinfo="onShow">授权</button>
     </form>
    </view>
 </layer>

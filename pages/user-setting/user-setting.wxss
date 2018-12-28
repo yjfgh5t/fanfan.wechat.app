@@ -19,7 +19,6 @@
     display:inline-block;
     float:left;
     border:4rpx solid #fff;
-    padding:8rpx;
     border-radius: 50%;
     background-size: 100rpx;
 }

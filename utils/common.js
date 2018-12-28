@@ -1,4 +1,4 @@
-import util from 'util.js'
+const Promise = require('bulebird.js');
 let tools = {
   //异步请求
   ajax: function(pathname, data, method, success, option) {
@@ -113,9 +113,11 @@ let tools = {
       success: function(res) {
         //是否授权
         if (res.authSetting['scope.userInfo']) {
-          wx.login({success(lres){
+          wx.login({
+            success: (lres) => {
             wx.getUserInfo({
               success: (res) => {
+                console.log(res);
                 const sub ={
                   code: lres.code,
                   tpNick: res.userInfo.nickName,
@@ -188,6 +190,75 @@ let tools = {
         })
       }
       });
+  },
+  //判断是否有权限
+  getSetting: function () {
+    return new Promise(function (resolve, reject) {
+      wx.getSetting({
+        success: function (res) {
+          if (res.authSetting[socpeName]) {
+            res.code=0;
+            resolve(res);
+          } else {
+            res.code = 1;
+            resolve(res);
+          }
+        },
+        fail: function (res) {
+          res.code = 1;
+          resolve(res)
+        }
+      })
+    });
+  },
+  //获取权限
+  getPermissions: function (scopeName){
+    let scopeFunName='',desc='';
+    switch(scopeName){
+      case 'scope.userLocation': 
+      scopeFunName = 'chooseLocation'; 
+        desc="未能获取您的位置";
+      break;
+    }
+    return new Promise(function(resolve){
+      wx[scopeFunName]({
+        success:function(res){
+          res.code = 0;
+          resolve(res);
+        },
+        fail:function(res){
+          if (res.errMsg.indexOf('auth')>0){
+            //授权失败
+            res.code = 2;
+          }else{
+            //其它问题 如取消选择地址
+            res.code = 1;
+          }
+          resolve(res)
+        }
+      })
+    }).then(function(res){
+      //授权成功
+      if(res.code!=2){
+        return res;
+      }
+      wx.showModal({
+        title: '授权提示',
+        content: desc,
+        confirmText: '去设置',
+        success: function (mres) {
+          //打开授权设置界面
+          if (mres.confirm) {
+            wx.openSetting({
+              success: function (sres) {
+                //是否授权成功
+                  return tools.getPermissions(scopeName);
+              }
+            })
+          }
+        }
+      })
+    });
   }
 };
 export {

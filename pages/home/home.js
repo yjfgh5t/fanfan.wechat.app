@@ -75,7 +75,7 @@ Page({
   onReady: function() {
     //初始加载数据
     getApp().loadData();
-
+    let that = this;
     this.lazyLoad(this);
   },
   onShow: function() {

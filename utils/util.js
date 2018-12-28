@@ -1,3 +1,4 @@
+const Promise = require('bulebird.js');
 let util ={
   // 获取Setting
   getSetting:function (socpeName) {
@@ -9,10 +10,12 @@ let util ={
           } else {
             reject(res);
           }
+        },
+        fail: function(res){
+          reject(res)
         }
       })
     });
-
     return result;
   }
 }

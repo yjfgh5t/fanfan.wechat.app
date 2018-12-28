@@ -17,7 +17,12 @@ Page({
       if(user==null){
         _this.setData({ showLayerAouth:true});
       }else{
-        _this.setData({ model: { icon: user.userIcon, nick: user.userNick }, showLayerAouth:false });
+        _this.setData({ 
+          model: { 
+            icon: user.userIcon, 
+            nick: user.userNick
+            },
+           showLayerAouth:false });
       }
     });
 
